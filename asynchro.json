@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax request of json data</title>
+</head>
+<body>
+    <h1>Making request of JSON data.</h1>
+    <button id="a">Fetch data</button>
+    <script>
+        let s=new Promise((resolve,reject)=>
+        {
+            let xhr=new XMLHttpRequest()
+            xhr.open('GET','ip.json',true)
+            xhr.onprogress=function()
+            {
+                console.log("Process on going")
+            }
+            xhr.onload=function()
+            {
+                if(this.status==200)
+                {
+                    resolve(this.responseText)
+                }
+                else
+                {
+                    reject("error")
+                }
+            }
+            xhr.send()
+        })
+        s.then((value)=>
+        {
+            document.getElementById("a").addEventListener('click',function()
+            {
+                console.log(value)
+            })
+        })
+    </script>
+
+</body>
+</html>
