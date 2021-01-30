@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Aync await concept</h1>
+    <p id="b">Fetch data</p>
+    <script>
+        async function getdata()
+        {
+            let my=new Promise((resolve,reject)=>
+            {
+                let rf=new XMLHttpRequest()
+                rf.open('GET','ip.json',true)
+                rf.onprogress=function()
+                {
+                    console.log("process on going")
+                }
+                rf.onload=function()
+                {
+                    if(this.status==200)
+                    {
+                        resolve(this.responseText)
+                    }
+                    else
+                    {
+                        reject("some error")
+                    }
+                }
+                rf.send()
+            })
+            document.getElementById("b").innerHTML=await my;
+        }
+        getdata()
+    </script>
+</body>
+</html>
